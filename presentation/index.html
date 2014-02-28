@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Data-Driven Interactives with D3.js</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/newcity.css" id="theme">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="ubuntu-webfont/stylesheet.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style>
+		i.guide {
+			display: block;
+			margin: 1em 0;
+		}
+		ul.clean {
+			margin-left: 0;
+		}
+		ul.clean li {
+			list-style: none;
+		}
+
+		.alignleft {
+			text-align: left;
+		}
+
+		.emcolor {
+			color: #bada55;
+		}
+
+		.fixed {
+			font-family: monospace !important;
+		}
+
+		</style>
+	</head>
+
+	<body>
+		<div id="branding">
+			<img src="images/nc_logo_only.svg" />
+		</div>
+
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Data-Driven Interactives</h1>
+					<h3>With D3.js</h3>
+					<p>
+						<small>John Williams • NewCity • Fluent 2014</small>
+					</p>
+				</section>
+
+				<!--
+					Welcome and preamble
+				-->
+				<section>
+					<section data-transition="zoom">
+						<h1>Welcome</h1>					
+						<p>
+							<strong>NewCity:</strong> 
+							<a href="http://www.insidenewcity.com/">www.insidenewcity.com</a><br> <i class="icon-twitter"></i> @newc1ty
+						</p>
+						<p>&nbsp;</p>
+						<p>
+							<strong>John Williams:</strong> 
+							<a href="http://www.thudfactor.com/">www.thudfactor.com</a><br> <i class="icon-twitter"></i> @thudfactor
+						</p>
+						<p><small>Slides: <a href="http://www.thudfactor.com/present/d3">http://tinyurl.com/heweb13d3</a></small></p>
+					</section>
+
+					<section data-background="art/kj.jpg" data-transition="zoom">
+						<h2>About NewCity</h2>
+						<aside class="notes">
+						We are an interactive design agency based in Blacksburg, Virginia (near Virginia Tech) with a special focus on education. We have 25 people spread over several disciplines: design, development, user &amp; market research, content strategy.
+						</aside>
+					</section>
+
+					<section data-background="art/tag-team.jpg" data-transition="zoom">
+						<h2>About Me</h2>
+					</section>
+
+					<section>
+						<img src="art/Old-Rasputin-logo.jpg" />
+						<img src="art/bitter-american.jpg" class="fragment" />
+					</section>
+					
+					<section>
+						<h3>My Biggest Hope</h3>
+						<p class="fragment">… is that the conference wireless works today.</p>
+					</section>
+
+					<section>
+						<h3>My Second Biggest Hope</h3>
+						
+						<p>… is that you leave with:</p>
+						<ul>
+							<li>An understanding of what problems D3 solves</li>
+							<li>A grasp of core D3 concepts</li>
+							<li>An eagerness to create great visualizations</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Agenda</h3>
+						<ol class="alignleft">
+							<li class="fragment">Use cases, contraindications</li>
+							<li class="fragment">Simple examples</li>
+							<li class="fragment">An integrated application</li>
+						</ol>
+					</section>
+
+					<section>
+						<h3>How many know…</h3>
+						<ul>
+							<li class="fragment">HTML + CSS</li>
+							<li class="fragment">Programming in general</li>
+							<li class="fragment">Javascript</li>
+							<li class="fragment"><i>Functional</i> Javascript</li>
+							<li class="fragment">SVG</li>
+							<li class="fragment">D3</li>
+						</ul>
+					</section>
+					<aside class="notes">
+					<p>How much of this you know already will greatly affect the length of your learning curve.</p>
+					</aside>
+					<section>
+						<img src="art/bad-time.png" />
+					</section>
+				</section>
+
+
+				<!--
+					Problem space, basic examples
+				-->
+				<section>
+					<section>
+						<h1>What is D3?</h1>
+						<blockquote>
+							 D3.js is a JavaScript library for manipulating documents based on data.
+						</blockquote>
+						<p><small>— official documentation</small></p>
+						<p><small>Perhaps a little to generic.</small></p>
+						<aside class="notes">
+						D3 is a Javascript library typically used for information visualization. It is distinct from many other solution because it does not draw charts and graphs itself; instead, it describes the visualizations using DOM-based presentation languages such as HTML and SVG.
+						</aside>
+					</section>
+					<section>
+						<h3>D3 supports modern browsers.</h3>
+						<p>That means recent versions of Chrome, Firefox, Safari, Opera, and IE > 8.</p>
+						<p class="fragment"><i class="icon-bullhorn guide"></i> Can you drop IE 8 Support?</p>
+					</section>
+					<section>
+						<h3>Examples</h3>
+						<p>The Carter Center: <a href="http://www.cartercenter.org/countries/index.html">http://goo.gl/kLzdwd</a></p>
+						<p>PATRIC Concept: <a href="http://patric.newcitystaging.com/data-landing.php">http://goo.gl/nX4mPc</a></p>
+						<p>PATRIC Concept pt. 2: <a href="http://patric.newcitystaging.com/data-landing.php">http://goo.gl/vJp3eM</a></p>
+						<p class="fragment">Library: <a href="https://github.com/mbostock/d3/wiki/Gallery">http://git.io/pklTig</a></p>
+						<aside class="notes">
+						Pathosystems Resource Integration Center
+						</aside>
+					</section>
+					
+					
+					<section>
+						<h3>What is D3 for?</h3>
+						<p>We use charts to discover the stories that data tell.</p>
+						<p class="fragment">The first question to ask is: am I the intended audience?</p>
+					</section>
+					<section>
+						<p><small>Source: <a href="http://www.unistat.com/quality-control">http://www.unistat.com/quality-control</a></small></p>
+						<img src="art/qcvc_chart.png" />
+					</section>
+
+					<section>
+						<p><small>Source: <a href="http://blankfiendsew.blogspot.com/2010/10/cac-update-by-request.html">http://blankfiendsew.blogspot.com/2010/10/cac-update-by-request.html</a></small></p>					
+						<img src="art/cac.png" style="height: 75%" />
+					</section>
+
+					<section>
+						<h3>If you are the audience, you are…</h3>
+						<ul class="alignleft">
+							<li>Working directly with the data</li>
+							<li>Searching for the story within it</li>
+							<li>Seeking new insights</li>
+						</ul>
+						<p class="fragment"><em class="emcolor">D3 is probably not your tool.</em></p>
+					</section>
+
+					<section>
+						<p><small>Source: <a href="http://www.nytimes.com/interactive/2012/11/02/us/politics/paths-to-the-white-house.html?_r=0">http://www.nytimes.com/interactive/2012/11/02/us/politics/paths-to-the-white-house.html?_r=0</a></small></p>
+						<img src="art/obama-romney-paths.png" />
+					</section>
+
+					<section>
+						<p><small>Source: <a href="http://www.theguardian.com/world/interactive/2012/may/08/gay-rights-united-states">http://www.theguardian.com/world/interactive/2012/may/08/gay-rights-united-states</a></small></p>
+						<img src="art/gay-rights.png" />
+					</section>
+
+					<section>
+						<h3>If others are the audience, you are…</h3>
+						<ul class="alignleft">
+							<li>Curating the data</li>
+							<li>Communicating a story</li>
+							<li>Leading others to insights</li>
+						</ul>
+						<p class="fragment"><em class="emcolor">D3 is an excellent choice.</em></p>
+					</section>
+					<section>
+						<h3>…but all I want is a pie chart!</h3>
+						<img src="art/pacman.jpg" />
+						<p><small>Source: <a href="http://www.joysticktales.com/images/science-pacman">http://www.joysticktales.com/images/science-pacman</a><br />and like 5,000,000 other places</small></p>
+					</section>										
+					<section>
+						<h3>In other words:</h3>
+						<p>D3 is for <em>tailored</em> education, persuasion, and journalism.</p>
+						<p><small>Other tools, like R, are better suited for exploratory analysis of data.</small></p>
+					</section>
+					<section>
+						<p>With great power comes great … <span class="fragment">flexibility.</span></p>
+						<div class="fragment">
+							<p>Complexity always follows flexibility.</p>
+							<p>D3 sacrifices simplicity for power.</p>
+						</div>
+						<aside class="notes">
+							Something else comes with flexibility and that's complexity. I have never seen a system yet that is elegant, simple, and highly flexible. And yes, I've met all the CMS vendors.
+						</aside>
+					</section>
+				</section>
+
+				<!--
+					Programming
+				-->
+				<section>
+					<section>
+						<h1>Before We Start</h1>
+						<p>Requirements, Resources</p>
+					</section>
+					<section>
+						<h3>Short Examples</h3>
+						<ul>
+							<li>On <span class="fixed">codepen.io</span></li>
+							<li>Will be available after the presentation as well</li>
+							<li>Feel free to change, play around during the talk</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Demo Requirements</h3>
+						<ul>
+							<li>Text editor</li>
+							<li>PHP-capable Server</li>
+							<li>Internet Connection</li>
+						</ul>
+					</section>
+					<section class="screen">
+						<h3>IRL Trnspttr</h3>
+						<p><a href="http://thudfactor.com/trains" target="_blank">http://thudfactor.com/trains</a></p>
+						<p><a href="http://git.io/vOwDgA"><i class="icon-github"></i> http://git.io/vOwDgA</a></p>
+					</section>
+					<section>
+						<h3>Browser Compatibility</h3>
+						<ul>
+							<li>Chrome</li>
+							<li>Safari</li>
+							<li>Firefox</li>
+							<li>IE 9+</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>D3 Fundamentals</h1>
+						<p>InfoViz School of Witchcraft &amp; Wizardry</p>
+					</section>
+					<section>
+						<h3>Who's winning at Hogwarts</h3>
+						
+						<p>Listing the Houses:<br /> <a href="http://codepen.io/thudfactor/pen/qcfpm" target="_blank">http://codepen.io/thudfactor/pen/qcfpm</a></p>
+						
+						<p><small>It's OK if you don't understand all of this right away… we'll get there.</small></p>
+					</section>
+					<section>
+						<h3>In the thick of it</h3>
+						<p class="alignleft">This one line of code does a lot.</p>
+						<pre><code data-trim>
+d3.select("#target")
+   .selectAll("p")
+   .data(houses)
+   .enter()
+   .append("p")
+   .text(function(house) {
+      return house;
+   });
+						</code></pre>
+						<aside class="notes">
+						<p>First, we identify our target in the existing DOM. Then we prepare our data join with SelectAll (what we want to join to), create the join with data() (what we're joining), reduce this to the enter selection, then tell it what to do for all incoming data elements.</p>
+						</aside>
+					</section>
+					<section>
+						<h3><i class="icon-coffee"></i> On Your Own</h3>
+						<p>Change some of the data elements.</p>
+						<p><small>Codepen automatically runs as you make changes. This is <strong>not</strong> D3 updating.</small></p>
+						<aside class="notes">
+							<p>This is a really simple task. Only allow a couple of minutes.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>select vs. selectAll()</h3>
+						<p>Under most circumstances, use <span class="fixed">selectAll</span> when you are binding data to the result.</p>
+						<p><small>Detailed discussion: <a href="http://bost.ocks.org/mike/nest/">http://bost.ocks.org/mike/nest/</a></small></p>
+						<aside class="notes">
+							<p>The difference between the two is nuanced, and generally only applies when creating deeply nested structures. I survived for a long time thinking I knew the difference but being totally wrong.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Critical Notion: Data Joins</h3>
+						<p>Calling <span class="fixed">data()</span> creates three groups:</p>
+						<ul class="alignleft">
+							<li><span class="fixed emcolor">enter():</span> Data that is <strong>entering</strong></li>
+							<li><span class="fixed emcolor">update():</span> Data that <strong>exists but may change</strong></li>
+							<li><span class="fixed emcolor">exit():</span> Data that is <strong>leaving</strong></li>
+						</ul>
+						<p><small>Detailed discussion: <a href="http://bost.ocks.org/mike/join/">http://bost.ocks.org/mike/join/</a></small></p>
+						<aside class="notes">
+							<p>Understanding this is critical for making charts. We'll go over it several times in each example. It will eventually make sense.</p>
+							<p>What is returned from data() is the update selection. enter() and exit() return their respective selections.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>House Colors</h3>
+						<p>Let's work with objects instead of a simple array, and start doing something nifty.</p>
+						<p><a href="http://codepen.io/thudfactor/pen/ufBhw">http://codepen.io/thudfactor/pen/ufBhw</a></p>
+						<aside class="notes">
+							<p>We can use the function defined in the text() to tell D3 how / what to extract from the data object.</p>
+						</aside>						
+					</section>
+					<section>
+						<h3><i class="icon-coffee"></i> On Your Own</h3>
+						<ol>
+							<li class="fragment">Add a color attribute for each object in the data set.</li>
+							<li class="fragment">Set the background color of each paragraph to the corresponding house color.
+								<p>
+								<strong>Hint:</strong> 
+								<pre><code>.style("background-color",function(house){ ... })</code></pre>
+								</p>
+							</li>
+							<li class="fragment">Turn this into a rudimentary bar chart by adding a "score" property and updating the appropriate styles.</li>
+						</ol>
+						<p><small>Codepen automatically runs as you make changes. This is <strong>not</strong> D3 updating.</small></p>
+						<aside class="notes">
+							<p>May want to walk around for this one.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Answers</h3>
+						<ul>
+						<li>Background colors: <a href="http://codepen.io/thudfactor/pen/BGrIi">http://codepen.io/thudfactor/pen/BGrIi</a></li>
+						<li>Bar chart: <a href="http://codepen.io/thudfactor/pen/Khfqo">http://codepen.io/thudfactor/pen/Khfqo</a></li>
+						</ul>
+						<aside class="notes">
+							<p>This should strengthen the basic concept of accessing data.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Updating existing data</h3>
+						<p>We will grant points to Gryffindor. Basic pattern:</p>
+						<ol class="alignleft">
+							<li>Load initial data</li>
+							<li>Build our initial display (using <code class="emcolor">enter()</code>)
+							<li>Create our update mechanism, changing relevant attributes.</li>
+						</ol>
+						<p><small><a href="http://codepen.io/thudfactor/pen/AKdpG">http://codepen.io/thudfactor/pen/AKdpG</a></small></p>
+					</section>
+					<section>
+						<h3><i class="icon-coffee"></i> On your own</h3>
+						<ol>
+							<li class="fragment">Add a button that <strong>removes</strong> ten points from Slytherin.</li>
+							<li class="fragment">Add a text field and a button that <strong>grants</strong> an arbitrary amount to Hufflepuff.</li>
+						</ol>
+						<p class="fragment"><small>Answer at <a href="http://codepen.io/thudfactor/pen/jxkfb">http://codepen.io/thudfactor/pen/jxkfb</a></small></p>
+						<aside class="notes">
+						<p>You may ask why we're not just making a form that lets you decide whether or not to grant or remove points from an arbitrary house. Getting some form values without using a library like JQuery is pretty complex, and D3 is not much help here -- at least as far as I've been able to tell. You can combine D3 with JQuery, but this is not a JQuery presentation. You just gotta draw the line somewhere.</p>
+						</aside>
+					</section>
+					<section>
+						<h3>What did we just do?</h3>
+						<ol class="alignleft">
+							<li>Prepared our selection set with <code class="emcolor">selectAll()</code>.</li>
+							<li>Joined it with data.</li>
+							<li>Used <code class="emcolor">enter()</code> to specify how new items will look.</li>
+							<li>Updated the data.</li>
+							<li>Re-joined it, and used the result of <code class="emcolor">data()</code> to update the correct properties.</li>
+						</ol>
+						<p><small>What's left? Adding and removing elements, of course.</small></p>
+					</section>
+					<section>
+						<h3>Adding and removing elements.</h3>
+						<ol>
+							<li>This code sample adds a button that adds an element</li>
+							<li>Also a button that removes an element</li>
+							<li>The code is refactored so the same update code is used each time.</li>
+						</ol>
+						<p><small><a href="http://codepen.io/thudfactor/pen/Jykdh">http://codepen.io/thudfactor/pen/Jykdh</a></small></p>
+					</section>
+					<section>
+					<img src="art/mb-frowny.jpg" />
+					</section>
+					<section>
+						<h3>How does D3 know what to update?</h3>
+						<p class="fragment">Unless you tell it otherwise, by <em>array index</em>.</p>
+						<p class="fragment">If you modify array order: confusion.</p>
+						<p class="fragment">You can pass <code class="emcolor">data()</code> a second "key" function to keep things straight.</p>
+						<p class="fragment"><small>See it in action at <a href="http://codepen.io/thudfactor/pen/yzIbe">http://codepen.io/thudfactor/pen/yzIbe</a></small></p>
+					</section>
+					<section>
+						<h3>So much to learn, so little time</h3>
+						<ol class="alignleft">
+							<li>Colors</li>
+							<li>Scales</li>
+							<li>Layouts</li>
+							<li>More more more…</li>
+						</ol>
+						<p>All of this works pretty much the same way: pass functions configuration functions, use the result to operate on data.</p>
+					</section>
+				</section>
+				<!-- Break, for reals. -->
+				<section>
+					<section>
+						<h1>Scalable Vector Graphics</h1>
+					</section>
+					<section>
+						<h3>Old standard, new future</h3>
+						<ul class="alignleft">
+							<li>Browser support solid (IE > 8)</li>
+							<li>Content is vector (Hello, retina!)</li>
+							<li>Export from Illustrator</li>
+							<li>DOM-based format</li>
+						</ul>
+					</section>
+					<section>
+						<pre><code>
+<svg>
+	<rect height="100" width="100" fill="#f00" x="0" y="" />
+	<circle cx="50" cy="50" r="25" style="fill: #0f0" />
+</svg>
+					</code></pre>
+					</section>
+					<section>
+						<h3>A brief word about semantic SVG</h3>
+						<img class="fragment" src="art/mb-shouty.jpg" />
+						<aside class="notes">
+							<p>Please do not try to write semantic SVG. SVG is entirely a presentation language.</p> 
+						</aside>
+					</section>
+					<section>
+						<img src="art/svg-essentials.jpg" />
+					</section>
+					<section>
+						<h3>Things to keep in mind:</h3>
+						<ul class="alignleft">
+							<li><code class="emcolor">svg</code> is an HTML element</li>
+							<li><code class="emcolor">g</code> ("group") is not <code class="emcolor">div</code></li>
+							<li><code class="emcolor">text</code> applies neither word-wrapping nor formatting.</li>
+							<li>Use <code class="emcolor">foreignObject</code> to embed HTML in SVG</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Lastly, DOMs Differ</h3>
+						<p>JQuery <strong>might</strong> work. Or it might not.</p>
+						<p>There are enough similarities to be confusing.</p>
+						<p>D3 can work in both.</p>
+					</section>
+					<section>
+						<h3><i class="coffee"></i> On your own</h3>
+						<p><a href="http://codepen.io/thudfactor/pen/wbrDo">http://codepen.io/thudfactor/pen/wbrDo</a></p>
+					</section>
+				</section>
+
+				<section>
+					<section data-background="art/irish-train.jpg">
+						<h1>IE Trnsptr</h1>
+						<p><a href="http://goo.gl/VYWOz3">http://goo.gl/VYWOz3</a></p>
+						<p><a href="https://github.com/thudfactor/trains">http://git.io/vOwDgA</a></p>
+						<p><small>Background photo: Cian Ginty<br /><a href="http://flic.kr/p/4DLuNC">http://flic.kr/p/4DLuNC</a></small></p>
+						<img src="art/sara.jpg" class="fragment" />
+					</section>
+				
+					<section>
+						<h3>Thank you!</h3>
+						<ol class="alignleft">
+							<li>Follow me on Twitter: <a href="http://twitter.com/thudfactor"><i class="icon-twitter"></i> @thudfactor</a></li>
+							<li>Post technical questions to StackOverflow</li>
+							<li>Post philosophical / conceptual questions to the forum</li>
+							<li>More reading: <a href="http://tinyurl.com/lht3unt">http://tinyurl.com/lht3unt</a></li>
+						</ol>
+					</section>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,107 @@
+/**
+ * Default theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+
+// Include theme-specific fonts
+@font-face {
+	font-family: 'League Gothic';
+	src: url('../../lib/font/league_gothic-webfont.eot');
+	src: url('../../lib/font/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../../lib/font/league_gothic-webfont.woff') format('woff'),
+		 url('../../lib/font/league_gothic-webfont.ttf') format('truetype'),
+		 url('../../lib/font/league_gothic-webfont.svg#LeagueGothicRegular') format('svg');
+
+	font-weight: normal;
+	font-style: normal;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+// Override theme settings (see ../template/settings.scss)
+$heading1TextShadow: 0;
+$headingTextTransform: none;
+$headingColor: #bada55;
+
+// Background generator
+@mixin bodyBackground() {
+	background-color: "";
+}
+
+$backgroundColor: #171717;
+
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal .state-background:before {
+	content: "fnord";
+	opacity: .7;
+	text-indent: -9999em;
+	color: #fff;
+	display: block;
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	background-image: url('../../images/hashlines.svg');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: contain;
+}
+
+.slides section.present {
+	background-image: linear-gradient(to right, transparent, rgba(0,0,0,.7), transparent);
+	border-width: 1px;
+	border-image: linear-gradient(to right, transparent, rgba(255,255,255,.4), transparent) 100% 1 1 stretch;
+	&.green {
+		background-image: linear-gradient(to right, transparent, rgba(255,255,255,.4), transparent);
+		border-image: linear-gradient(to right, transparent, rgba(0,0,0,.4), transparent) 100% 1 1 stretch;
+		color: #171717;
+		h1,h2,h3,h4,h5,h6 {
+			color: #171717;
+		}
+	}	
+	&.stack {
+		border-image: none;
+		border-width: 0;
+	}
+}
+
+#branding {
+	position: absolute;
+	top: -8px;
+	left: 20px;
+	padding:  12px 26px 20px 26px;
+	background: transparent url('../../images/scallop.svg') scroll no-repeat 50% bottom;
+	background-size: contain;
+	img {
+		width: 60%;
+		display: block;
+		margin: 0 auto;
+		position: relative;
+		top: 7px;
+	}
+	z-index: 9999;
+}
+
+.reveal {
+	h1, h2, h3, h4, h5, h6 {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	ul, ol {
+		margin-top: .5em;
+		margin-bottom: .5em;
+	}
+}

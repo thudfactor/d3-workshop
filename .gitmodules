@@ -1,0 +1,3 @@
+[submodule "trainspottr"]
+	path = trainspottr
+	url = https://github.com/thudfactor/trains.git
